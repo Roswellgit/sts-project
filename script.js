@@ -7,15 +7,15 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+            observer.unobserve(entry.target); // Stops observing once triggered
         }
     });
 }, observerOptions);
 
-// Elements to watch
-const scrollElements = document.querySelectorAll('.text-block, .t-item, .card, .sol-card');
+// Elements to watch for animation
+const scrollElements = document.querySelectorAll('.text-block, .t-item, .card, .sol-card, .stat-box, .ref-grid');
 
-// Set initial style via JS
+// Set initial invisible state via JS (to avoid layout shift if JS fails)
 scrollElements.forEach((el) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
@@ -23,7 +23,7 @@ scrollElements.forEach((el) => {
     observer.observe(el);
 });
 
-// Trigger animation class
+// Trigger the visual change
 document.addEventListener('scroll', () => {
     scrollElements.forEach((el) => {
         if (el.classList.contains('visible')) {
@@ -33,4 +33,4 @@ document.addEventListener('scroll', () => {
     });
 });
 
-console.log("STS Project: Full Content Expansion Loaded.");
+console.log("STS Project: Full version loaded successfully.");

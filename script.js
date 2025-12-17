@@ -1,35 +1,36 @@
-// Intersection Observer for scroll animations
+// Fade-in animation on scroll
 const observerOptions = {
-    threshold: 0.1
+    threshold: 0.15
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0)";
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // Only animate once
         }
     });
 }, observerOptions);
 
 // Select elements to animate
-const animatedElements = document.querySelectorAll('.content, .card, .impact-box, .solution-card');
+const elements = document.querySelectorAll('.text-block, .stat-card, .t-item, .card, .step');
 
-// Set initial state and observe
-animatedElements.forEach((el) => {
-    el.style.opacity = "0";
-    el.style.transform = "translateY(30px)";
-    el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
+// Initial styling for animation
+elements.forEach((el) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
     observer.observe(el);
 });
 
-// Glitch effect trigger for the title (optional visual flair)
-const title = document.querySelector('.glitch');
-if(title) {
-    title.addEventListener('mouseover', () => {
-        title.style.color = '#00d2ff';
+// Trigger the animation
+document.addEventListener('scroll', () => {
+    elements.forEach((el) => {
+        if(el.classList.contains('visible')) {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        }
     });
-    title.addEventListener('mouseout', () => {
-        title.style.color = 'white';
-    });
-}
+});
+
+console.log("STS Project loaded successfully.");

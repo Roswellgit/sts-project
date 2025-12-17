@@ -1,36 +1,36 @@
-// Fade-in animation on scroll
+// INTERSECTION OBSERVER FOR SCROLL ANIMATIONS
 const observerOptions = {
-    threshold: 0.15
+    threshold: 0.1
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target); // Only animate once
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-// Select elements to animate
-const elements = document.querySelectorAll('.text-block, .stat-card, .t-item, .card, .step');
+// Elements to watch
+const scrollElements = document.querySelectorAll('.text-block, .t-item, .card, .sol-card');
 
-// Initial styling for animation
-elements.forEach((el) => {
+// Set initial style via JS
+scrollElements.forEach((el) => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'all 0.6s ease-out';
     observer.observe(el);
 });
 
-// Trigger the animation
+// Trigger animation class
 document.addEventListener('scroll', () => {
-    elements.forEach((el) => {
-        if(el.classList.contains('visible')) {
+    scrollElements.forEach((el) => {
+        if (el.classList.contains('visible')) {
             el.style.opacity = '1';
             el.style.transform = 'translateY(0)';
         }
     });
 });
 
-console.log("STS Project loaded successfully.");
+console.log("STS Project: Full Content Expansion Loaded.");
